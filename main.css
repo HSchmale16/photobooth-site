@@ -10,6 +10,12 @@ html, body {
     background-color: white;
 }
 
+header {
+    min-height: 100px;
+    font-weight: 900;
+    font-size: 32pt;
+}
+
 #preview {
     float: right;
     display: none;
