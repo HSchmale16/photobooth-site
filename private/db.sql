@@ -1,0 +1,26 @@
+DROP DATABASE IF EXISTS photobooth;
+CREATE DATABASE photobooth;
+
+USE photobooth;
+
+CREATE TABLE Photo (
+  id        INTEGER PRIMARY KEY AUTO_INCREMENT,
+  email     INTEGER,
+  photoPath VARCHAR(512) UNIQUE,
+  thumbNail VARCHAR(512) UNIQUE,
+);
+
+CREATE TABLE Person (
+  id  INTEGER PRIMARY KEY AUTO_INCREMENT,
+  pname VARCHAR(45) UNIQUE,
+  email VARCHAR(255)
+);
+
+CREATE TABLE PhotoDetail (
+  id    INTEGER PRIMARY KEY AUTO_INCREMENT,
+  photoId INTEGER,
+  personId INTEGER,
+  FOREIGN KEY (photoid) REFERENCES Photo(id),
+  FOREIGN KEY (personId) REFERENCES Person(id)
+);
+
