@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Simple Photobooth Site</title>
-        <link href="/main.css" rel="stylesheet">
-        <script src="extern/jquery-2.2.1.min.js"></script>
-        <script src="extern/photobooth_min.js"></script>
-        <script src="main.js"></script>
-        <script>
-            window.onload = init;
-        </script>
-    </head>
-    <body>
-        <div id="photobooth"></div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Simple Photobooth Site</title>
+    <link rel="stylesheet" href="/extern/bootstrap.min.css">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/extern/adapter.js"></script>
+    <script src="extern/jquery-2.2.1.min.js"></script>
+    <script src="/main.js"></script>
+    <script>window.onload = init;</script>
+</head>
+<body>
+<div class="countdown"></div>
+<div class="container">
+    <video id="webcam-video" autoplay></video>
+    <div id="preview">
+        <canvas></canvas>
+        <br>
+    </div>
+    <button id="takePicture">Take Picture</button>
+</div>
+</body>
 </html>
