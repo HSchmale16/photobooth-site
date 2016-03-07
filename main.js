@@ -5,8 +5,11 @@
 
 var PhotoBooth = {
     onMediaStream: function(stream) {
-        PhotoBooth.canvas = $('canvas')[0];
-        PhotoBooth.context = PhotoBooth.canvas.getContext('2d');
+        PhotoBooth.preview = $('canvas')[0];
+
+        PhotoBooth.image = document.createElement('canvas');
+        PhotoBooth.image.width = 640;
+        PhotoBooth.image.height = 480;
 
         PhotoBooth.localVideo = $('video')[0];
         PhotoBooth.localVideo.src = window.URL.createObjectURL(stream);
@@ -34,14 +37,18 @@ function takePicture() {
     $('.countdown').show();
     countdown(3);
     setTimeout(function() {
-        PhotoBooth.context.drawImage(PhotoBooth.localVideo, 0, 0, 200, 150);
+        PhotoBooth.image.getContext('2d')
+            .drawImage(PhotoBooth.localVideo, 0, 0,640, 480);
+        PhotoBooth.preview.getContext('2d')
+            .drawImage(PhotoBooth.image, 0, 0, 160, 120);
         $('#preview').show();
+
     }, 3000);
 }
 
 // uploads the image to the server
 function makeNewspaper() {
-    var dataUrl = PhotoBooth.canvas.toDataURL();
+    var dataUrl = PhotoBooth.image.toDataURL();
     var data = {
         name: $('#username').val(),
         email: $('#emailAddress').val(),
