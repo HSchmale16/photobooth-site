@@ -40,7 +40,7 @@ function saveImage($dataUrl)
     $photoname = IMAGE_DIR . $fileid . '.png';
     file_put_contents($photoname, $data);
     $thumbname = IMAGE_DIR . 'thumb/' . $fileid . '.jpg';
-    //imagejpeg(resizeImage($photoname, 120, 90), $thumbname);
+    imagejpeg(resizeImage($photoname, 120, 90), $thumbname);
     return $fileid;
 }
 

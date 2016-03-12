@@ -9,7 +9,10 @@
 %%%	a good idea to use with this package is
 %%%	the multicols package and the picinpar package
 %%%
-%%%	
+%%%
+%%% Modified by Henry Schmale on March 12, 2016
+%%% 
+%%% Removed paper slogan stuff, and modifed the layout of the header
 
 %******* 	Identification   *****
 \ProvidesPackage{newspaper}
@@ -72,8 +75,7 @@
 \renewcommand{\maketitle}{\thispagestyle{empty}
 \vspace*{-40pt}
 \begin{center}
-{\setlength\fboxsep{3mm}\raisebox{12pt}{\framebox[1.2\width]{\parbox[c]{1.15in}{\begin{center}\small \@paperslogan\end{center}}}}}\hfill%
-{\textgoth{\huge\usefont{LYG}{bigygoth}{m}{n} \@papername}}\hfill%	
+{\textgoth{\Large\usefont{LYG}{bigygoth}{m}{n} \@papername}}\hfill%	
 \raisebox{12pt}{\textbf{\footnotesize \@paperlocation}}\\
 \vspace*{0.1in}
 \rule[0pt]{\textwidth}{0.5pt}\\
