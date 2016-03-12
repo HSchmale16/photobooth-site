@@ -52,19 +52,3 @@ $serv = "localhost";
 $dbusr = "user";
 $passwd = "password";
 
-try {
-    $conn = new PDO("mysql:host=$serv;dbname=photobooth", $dbusr, $passwd);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    /*
-
-     $sql = "INSERT INTO UserLogins(username, machineMac)VALUES(:usr, :mac);";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':usr', $usr);
-    $stmt->bindParam(':mac', $mac);
-    $stmt->execute();
-    echo "Success";
-    */
-} catch (PDOException $e) {
-    echo "Fail: " . $e->getMessage();
-}
