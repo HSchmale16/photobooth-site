@@ -8,8 +8,8 @@ var PhotoBooth = {
         PhotoBooth.preview = $('canvas')[0];
 
         PhotoBooth.image = document.createElement('canvas');
-        PhotoBooth.image.width = 640;
-        PhotoBooth.image.height = 480;
+        PhotoBooth.image.width = 800;
+        PhotoBooth.image.height = 600;
 
         PhotoBooth.localVideo = $('video')[0];
         PhotoBooth.localVideo.src = window.URL.createObjectURL(stream);
@@ -38,7 +38,9 @@ function takePicture() {
     countdown(3);
     setTimeout(function() {
         PhotoBooth.image.getContext('2d')
-            .drawImage(PhotoBooth.localVideo, 0, 0,640, 480);
+            .drawImage(PhotoBooth.localVideo, 0, 0,
+                PhotoBooth.image.width,
+                PhotoBooth.image.height);
         PhotoBooth.preview.getContext('2d')
             .drawImage(PhotoBooth.image, 0, 0, 160, 120);
         $('#preview').show();
