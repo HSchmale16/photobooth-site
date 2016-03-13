@@ -46,14 +46,43 @@ function takePicture() {
     }, 3000);
 }
 
+// returns true if <value> exists in <arr>
+function existsInArray(arr, value){
+    for(i in arr){
+        if(value === arr[i]){
+            return true;
+        }
+    }
+    return false;
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 // uploads the image to the server
 function makeNewspaper() {
     var dataUrl = PhotoBooth.image.toDataURL();
     var data = {
         name: $('#username').val(),
         email: $('#emailAddress').val(),
+        printControl: $('#printSet').val(),
         image: dataUrl
     };
+    // validate inputs
+    if(data.name.length <= 1){
+        alert("Name Too Short. Enter longer name");
+        return;
+    }
+    if(!validateEmail(data.email)){
+        alert("Email Invalid");
+        return;
+    }
+    if(!existsInArray([1,2,3], parseInt(data.printControl))){
+        alert("Invalid Print Request");
+        return;
+    }
     $.post(
         '/api/upload.php',
         data,

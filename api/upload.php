@@ -9,6 +9,8 @@
  */
 
 define('IMAGE_DIR', dirname(__FILE__) . '/images/');
+require('extern/Template.php');
+require('extern/class.phpmailer.php');
 
 function resizeImage($file, $w, $h, $crop = FALSE)
 {
@@ -47,8 +49,4 @@ function saveImage($dataUrl)
 $fileid = saveImage($_POST['image']);
 $_POST['image'] = IMAGE_DIR . $fileid . '.png';
 
-// Access the database and save image metadata there
-$serv = "localhost";
-$dbusr = "user";
-$passwd = "password";
 

@@ -1,0 +1,2 @@
+# Block access to lib files
+deny from all
