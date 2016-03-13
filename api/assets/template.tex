@@ -1,5 +1,5 @@
 %%% THE NEWSPAPER TEMPLATE FOR GRANDMOM's Party
-\documentclass{article}
+\documentclass[letterpaper]{article}
 \usepackage{newspaper}
 
 \date{\today}
@@ -13,11 +13,28 @@
 \usepackage{times}
 \usepackage{graphicx}
 \usepackage{multicol}
+\usepackage{picinpar}
+\usepackage{lipsum}
 
 % BEGIN THE DOCUMENT
 \begin{document}
 \maketitle
+\headline{\bf\sf\Large Great Time at Barbra's Party}
 
+% Put the article contents below
+\begin{multicols}{3}
+    Everyone had a great time at Barbara Collins Surpise Party. Barbra
+    Collins, Deborah Schmale's mother, recently turned 75, and this party
+    was for her, and all the struggles of the past year being in the past
+    now.
+    
+    This party
+    took place at the Pikeville Sportsman Club. There was a DJ there, and a
+    photobooth, which allowed guests to create newspapers like the one you
+    see right here. The photos were all placed up on a website for all
+    guests to access after the party.
+    
+\closearticle
 
-
+\end{multicols}
 \end{document}
