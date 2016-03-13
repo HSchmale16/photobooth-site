@@ -25,7 +25,7 @@ function resizeImage($file, $w, $h, $crop = FALSE)
         $newwidth = $w;
     }
 
-    $src = imagecreatefrompng($file);
+    $src = imagecreatefromjpeg($file);
     $dst = imagecreatetruecolor($newwidth, $newheight);
     imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
@@ -35,11 +35,11 @@ function resizeImage($file, $w, $h, $crop = FALSE)
 function saveImage($dataUrl)
 {
     global $photoname, $thumbname;
-    $dataUrl = str_replace('data:image/png;base64,', '', $dataUrl);
+    $dataUrl = str_replace('data:image/jpeg;base64,', '', $dataUrl);
     $dataUrl = str_replace(' ', '+', $dataUrl);
     $data = base64_decode($dataUrl);
     $fileid = uniqid();
-    $photoname = IMAGE_DIR . $fileid . '.png';
+    $photoname = IMAGE_DIR . $fileid . '.jpg';
     file_put_contents($photoname, $data);
     $thumbname = IMAGE_DIR . 'thumb/' . $fileid . '.jpg';
     imagejpeg(resizeImage($photoname, 120, 90), $thumbname);

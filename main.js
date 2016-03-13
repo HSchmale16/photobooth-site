@@ -63,7 +63,7 @@ function validateEmail(email) {
 
 // uploads the image to the server
 function makeNewspaper() {
-    var dataUrl = PhotoBooth.image.toDataURL();
+    var dataUrl = PhotoBooth.image.toDataURL("image/jpeg");
     var data = {
         name: $('#username').val(),
         email: $('#emailAddress').val(),
@@ -83,6 +83,7 @@ function makeNewspaper() {
         alert("Invalid Print Request");
         return;
     }
+    // upload it now because it has not failed
     $.post(
         '/api/upload.php',
         data,
