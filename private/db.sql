@@ -1,19 +1,10 @@
-DROP DATABASE IF EXISTS photobooth;
-CREATE DATABASE photobooth;
-
-USE photobooth;
-
-CREATE TABLE Photo (
-  id        INTEGER PRIMARY KEY AUTO_INCREMENT,
-  email     INTEGER,
-  photoPath VARCHAR(512) UNIQUE,
-  thumbNail VARCHAR(512) UNIQUE,
-  whenTaken TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT='When the picture was taken'
+CREATE TABLE Upload (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  name         VARCHAR(45),
+  email        VARCHAR(512),
+  photoPath    VARCHAR(1024),
+  thumbPath    VARCHAR(1024),
+  templatePath VARCHAR(1024),
+  notes        VARCHAR(4096),
+  whenTaken    DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE Person (
-  id  INTEGER PRIMARY KEY AUTO_INCREMENT,
-  pname VARCHAR(45) UNIQUE,
-  email VARCHAR(255)
-);
-

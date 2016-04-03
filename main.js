@@ -70,6 +70,7 @@ function makeNewspaper() {
         name: $('#username').val(),
         email: $('#emailAddress').val(),
         printControl: $('#printSet').val(),
+        notes: $('#notes').val(),
         image: dataUrl
     };
     // validate inputs

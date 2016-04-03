@@ -5,3 +5,4 @@ api/images/*.jpg
 api/images/*.png
 api/images/thumb/*.jpg
 api/data/
+api/*.sqlite
