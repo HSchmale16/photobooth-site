@@ -91,8 +91,22 @@ EOF;
 }
 
 $fileid = saveImage($_POST['image']);
-$imageName = IMAGE_DIR . $fileid . '.png';
+$imageName = IMAGE_DIR . $fileid . '.jpg';
 $thumbName = THUMB_DIR . $fileid . '.jpg';
+$latexFile = LATEX_DIR.$fileid.'.tex';
+$pdfFile = LATEX_DIR.$fileid.'.pdf';
 
 addUploadToDatabase($_POST['name'], $_POST['email'], $imageName, $thumbName,
     null, $_POST['notes']);
+
+// Generate the latex template.
+$TemplateKeys = array(
+    'groupImage' => $imageName
+);
+$templ = new Text_Template('assets/template.tex', '<$', '$>');
+$templ->setVar($TemplateKeys);
+$templ->renderTo($latexFile);
+
+// Generate the pdf
+chdir(LATEX_DIR);
+exec("latexmk $latexFile && latexmk -c $latexFile");
