@@ -58,8 +58,8 @@ function saveImage($dataUrl)
     $photoname = IMAGE_DIR . $fileid . '.jpg';
     file_put_contents($photoname, $data);
     // save the thumbnail
-    $thumbname = IMAGE_DIR . 'thumb/' . $fileid . '.jpg';
-    imagejpeg(resizeImage($photoname, 120, 90), $thumbname);
+    //$thumbname = IMAGE_DIR . 'thumb/' . $fileid . '.jpg';
+    //imagejpeg(resizeImage($photoname, 120, 90), $thumbname);
     // return name of any files related to this upload minus extension and
     // directory path.
     return $fileid;
@@ -68,7 +68,7 @@ function saveImage($dataUrl)
 function addUploadToDatabase($name, $email, $photo, $thumb, $templ, $notes){
     $db = new UploadDB();
     if(!$db){
-        echo $db->lastErrorMsg();
+        die($db->lastErrorMsg());
     }
     $sql = <<< EOF
     insert into Upload(name, email, photoPath, thumbPath, templatePath, notes) VALUES
@@ -92,11 +92,11 @@ EOF;
 
 $fileid = saveImage($_POST['image']);
 $imageName = IMAGE_DIR . $fileid . '.jpg';
-$thumbName = THUMB_DIR . $fileid . '.jpg';
+//$thumbName = THUMB_DIR . $fileid . '.jpg';
 $latexFile = LATEX_DIR.$fileid.'.tex';
 $pdfFile = LATEX_DIR.$fileid.'.pdf';
 
-addUploadToDatabase($_POST['name'], $_POST['email'], $imageName, $thumbName,
+addUploadToDatabase($_POST['name'], $_POST['email'], $imageName, null,
     null, $_POST['notes']);
 
 // Generate the latex template.
