@@ -109,4 +109,6 @@ $templ->renderTo($latexFile);
 
 // Generate the pdf
 chdir(LATEX_DIR);
-exec("latexmk $latexFile && latexmk -c $latexFile");
+exec("latexmk -pdf $latexFile && latexmk -c $latexFile");
+
+echo 'Done';
