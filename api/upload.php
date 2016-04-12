@@ -24,7 +24,7 @@ require('extern/class.phpmailer.php');
 class UploadDB extends SQLite3 {
     function __construct()
     {
-        $this->open('upload.sqlite');
+        $this->open('./upload.sqlite');
     }
 }
 
@@ -72,21 +72,11 @@ function addUploadToDatabase($name, $email, $photo, $thumb, $templ, $notes){
     }
     $sql = <<< EOF
     insert into Upload(name, email, photoPath, thumbPath, templatePath, notes) VALUES
-    (?, ?, ?, ?, ?, ?);
+    ('$name', '$email', '$photo', '$thumb', '$templ', '$notes');
 EOF;
 
-    // insert the data
-    $st = $db->prepare($sql);
-    $st->bindParam(1, $name, SQLITE3_TEXT);
-    $st->bindParam(2, $email, SQLITE3_TEXT);
-    $st->bindParam(3, $photo, SQLITE3_TEXT);
-    $st->bindParam(4, $thumb, SQLITE3_TEXT);
-    $st->bindParam(5, $templ, SQLITE3_TEXT);
-    $st->bindParam(6, $notes, SQLITE3_TEXT);
-    $st->execute();
+    $db->exec($sql);
 
-    // perform cleanup
-    $st->close();
     $db->close();
 }
 
@@ -97,7 +87,7 @@ $latexFile = LATEX_DIR.$fileid.'.tex';
 $pdfFile = LATEX_DIR.$fileid.'.pdf';
 
 addUploadToDatabase($_POST['name'], $_POST['email'], $imageName, null,
-    null, $_POST['notes']);
+    $latexFile, $_POST['notes']);
 
 // Generate the latex template.
 $TemplateKeys = array(
