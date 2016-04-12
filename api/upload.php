@@ -58,8 +58,8 @@ function saveImage($dataUrl)
     $photoname = IMAGE_DIR . $fileid . '.jpg';
     file_put_contents($photoname, $data);
     // save the thumbnail
-    //$thumbname = IMAGE_DIR . 'thumb/' . $fileid . '.jpg';
-    //imagejpeg(resizeImage($photoname, 120, 90), $thumbname);
+    $thumbname = IMAGE_DIR . 'thumb/' . $fileid . '.jpg';
+    imagejpeg(resizeImage($photoname, 120, 90), $thumbname);
     // return name of any files related to this upload minus extension and
     // directory path.
     return $fileid;
@@ -82,12 +82,12 @@ EOF;
 
 $fileid = saveImage($_POST['image']);
 $imageName = IMAGE_DIR . $fileid . '.jpg';
-//$thumbName = THUMB_DIR . $fileid . '.jpg';
+$thumbName = THUMB_DIR . $fileid . '.jpg';
 $latexFile = LATEX_DIR.$fileid.'.tex';
 $pdfFile = LATEX_DIR.$fileid.'.pdf';
 
-addUploadToDatabase($_POST['name'], $_POST['email'], $imageName, null,
-    $latexFile, $_POST['notes']);
+//addUploadToDatabase($_POST['name'], $_POST['email'], $imageName, null,
+//    $latexFile, $_POST['notes']);
 
 // Generate the latex template.
 $TemplateKeys = array(
@@ -100,5 +100,20 @@ $templ->renderTo($latexFile);
 // Generate the pdf
 chdir(LATEX_DIR);
 exec("latexmk -pdf $latexFile && latexmk -c $latexFile");
+
+// email the user
+$mail = new PHPMailer;
+$mail->setFrom('photobooth@henryschmale.org');
+$mait->addAddress($_POST['email']);
+$mail->addAttachment($pdfFile);
+$mail->Subject('Newspaper Photobooth Email');
+$mail->Body('Here is the generated newspaper from the photobooth at the party today');
+
+if(!$mail->send()){
+    echo "Msg Not Sent\n";
+    echo "Err: ", $mail->ErrorInfo;
+}else{
+    echo "Sent Email";
+}
 
 echo 'Done';
