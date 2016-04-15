@@ -128,7 +128,8 @@ if(!$mail->send()){
     echo "Sent Email";
 }
 
-// send the email to be printed
+// send the email to the printer
+// There must be no body in the email, just the attachment to print.
 $printMail = new PHPMailer;
 $printMail->addAddress('eoa7594ait86@hpeprint.com');
 $printMail->Subject = 'Newpaper Photobooth Email';
