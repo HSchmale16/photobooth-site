@@ -109,15 +109,30 @@ foreach(explode(',', $_POST['email']) as $address) {
     echo "$address\n";
     $mail->addAddress($address);
 }
-$mail->addAddress('eoa7594ait86@hpeprint.com');
 $mail->addAttachment($pdfFile);
+$mail->addAttachment($imageName);
 
 $mail->Subject = 'Newspaper Photobooth Email';
-$mail->Body = 'Here is the generated newspaper from the photobooth at the party today';
+$mail->Body = <<< END_OF_STRING
+Here is the generated newspaper from the photobooth at the party today.
+It also includes the picture that was taken, as a jpeg. Thank you for
+using the photobooth created by Henry Schmale.
+
+https://github.com/HSchmale16/photobooth-site
+END_OF_STRING;
 
 if(!$mail->send()){
     echo "Msg Not Sent\n";
     die($mail->ErrorInfo);
 }else{
     echo "Sent Email";
+}
+
+// send the email to be printed
+$printMail = new PHPMailer;
+$printMail->addAddress('eoa7594ait86@hpeprint.com');
+$printMail->Subject = 'Newpaper Photobooth Email';
+$printMail->addAttachment($pdfFile);
+if($printMail->send()){
+    die($printMail->ErrorInfo);
 }
