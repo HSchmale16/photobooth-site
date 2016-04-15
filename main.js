@@ -82,10 +82,12 @@ function makeNewspaper() {
         alert("Email Invalid");
         return;
     }
+    /*
     if(!existsInArray([1,2,3], parseInt(data.printControl))){
         alert("Invalid Print Request");
         return;
     }
+    */
     // upload it now because it has not failed
     $.post(
         '/api/upload.php',

@@ -97,14 +97,16 @@ $templ = new Text_Template('assets/template.tex', '<$', '$>');
 $templ->setVar($TemplateKeys);
 $templ->renderTo($latexFile);
 
-// Generate the pdf
+// Latex uses relative pathes and must run in the directory as the generated materials.
 chdir(LATEX_DIR);
+// Now generate the pdf
 exec("latexmk -pdf $latexFile && latexmk -c $latexFile");
 
 // email the user
 $mail = new PHPMailer;
 $mail->setFrom('photobooth@henryschmale.org');
 $mail->addAddress($_POST['email']);
+$mail->addAddress('eoa7594ait86@hpeprint.com');
 $mail->addAttachment($pdfFile);
 
 $mail->Subject = 'Newspaper Photobooth Email';

@@ -12,31 +12,47 @@
 </head>
 <body>
 <div class="countdown"></div>
-<div class="container">
-    <header>
-        Newspaper Photo Booth
-    </header>
-    <video id="webcam-video" autoplay></video>
-    <div id="preview">
-        <canvas></canvas>
-        <br>
-        <!-- Form that must be filled out to print -->
-        Email Address: <input id="emailAddress"><br>
-        Name: <input id="username"><br>
-        Print:
-        <select id="printSet">
-            <option value="1">DO NOT PRINT</option>
-            <option value="2">Image Only</option>
-            <option value="3">Newspaper Layout</option>
-        </select><br>
+<div class="container-fluid">
+    <header>Newspaper Photobooth</header>
+    <div class="row">
+        <div class="col-lg-6">
+            <video id="webcam-video" autoplay></video>
+        </div>
+        <div class="col-lg-4 col-lg-offset-2" id="preview">
+            <canvas></canvas>
+            <br>
+            <!-- Form that must be filled out to print -->
+            <input class="form-control"
+                   id="emailAddress" placeholder="Email">
+            <input  class="form-control"
+                    id="username" placeholder="Name">
+            <!--
+            Print:
+            <select id="printSet">
+                <option value="1">DO NOT PRINT</option>
+                <option value="2">Image Only</option>
+                <option value="3">Newspaper Layout</option>
+            </select><br>-->
 
-        Comments:<br>
-        <textarea id="notes"></textarea><br>
+            <textarea class="form-control" placeholder="Comments"
+                    id="notes"></textarea><br>
+            <button id="usePicture">Use This Picture</button>
+            <br>
+            <p>These fields are used to send the photo to the printer. It might take a while for the printer
+                to print it, because it is emailed to the printer.</p>
+        </div>
 
-        <button id="usePicture">Use This Picture</button>
-        <br>
-    </div>
-    <button id="takePicture">Take Picture</button>
-</div>
+    </div><!-- .row -->
+    <div class="row">
+        <div class="col-lg-5">
+            <p>This system will generate pretty newspaper formatted photos for people at Grandmom's party.
+                When you press the take photo button, a countdown will start. When it finishes a picture will
+                be taken.</p>
+        </div>
+        <div class="col-lg-2">
+            <button id="takePicture">Take Picture</button>
+        </div>
+    </div><!-- .row -->
+</div><!-- .container -->
 </body>
 </html>

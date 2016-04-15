@@ -11,7 +11,7 @@ html, body {
 }
 
 header {
-    min-height: 100px;
+    min-height: 50px;
     font-weight: 900;
     font-size: 32pt;
 }
