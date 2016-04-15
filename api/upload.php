@@ -105,7 +105,10 @@ exec("latexmk -pdf $latexFile && latexmk -c $latexFile");
 // email the user
 $mail = new PHPMailer;
 $mail->setFrom('photobooth@henryschmale.org');
-$mail->addAddress($_POST['email']);
+foreach(explode(',', $_POST['email']) as $address) {
+    echo "$address\n";
+    $mail->addAddress($address);
+}
 $mail->addAddress('eoa7594ait86@hpeprint.com');
 $mail->addAttachment($pdfFile);
 
@@ -114,9 +117,7 @@ $mail->Body = 'Here is the generated newspaper from the photobooth at the party 
 
 if(!$mail->send()){
     echo "Msg Not Sent\n";
-    echo "Err: ", $mail->ErrorInfo;
+    die($mail->ErrorInfo);
 }else{
     echo "Sent Email";
 }
-
-echo 'Done';

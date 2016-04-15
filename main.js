@@ -78,10 +78,12 @@ function makeNewspaper() {
         alert("Name Too Short. Enter longer name");
         return;
     }
-    if(!validateEmail(data.email)){
-        alert("Email Invalid");
-        return;
-    }
+    data.email.split(',').forEach(function(email){
+        if(!validateEmail(email)){
+            alert("Email Invalid:" + email);
+            return;
+        }
+    });
     /*
     if(!existsInArray([1,2,3], parseInt(data.printControl))){
         alert("Invalid Print Request");
