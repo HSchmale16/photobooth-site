@@ -1,0 +1,2 @@
+# Block Access to JSON Blobs
+deny from all

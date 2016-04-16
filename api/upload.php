@@ -17,6 +17,7 @@
 define('IMAGE_DIR', dirname(__FILE__) . '/images/');
 define('THUMB_DIR', dirname(__FILE__) . '/images/thumb/');
 define('LATEX_DIR', dirname(__FILE__) . '/latex/');
+define('JSON_DIR', dirname(__FILE__) . '/json/');
 
 require('extern/Template.php');
 require('extern/class.phpmailer.php');
@@ -65,26 +66,26 @@ function saveImage($dataUrl)
     return $fileid;
 }
 
-function addUploadToDatabase($name, $email, $photo, $thumb, $templ, $notes){
-    $db = new UploadDB();
-    if(!$db){
-        die($db->lastErrorMsg());
-    }
-    $sql = <<< EOF
-    insert into Upload(name, email, photoPath, thumbPath, templatePath, notes) VALUES
-    ('$name', '$email', '$photo', '$thumb', '$templ', '$notes');
-EOF;
-
-    $db->exec($sql);
-
-    $db->close();
-}
-
 $fileid = saveImage($_POST['image']);
 $imageName = IMAGE_DIR . $fileid . '.jpg';
 $thumbName = THUMB_DIR . $fileid . '.jpg';
 $latexFile = LATEX_DIR.$fileid.'.tex';
 $pdfFile = LATEX_DIR.$fileid.'.pdf';
+$jsonFile = JSON_DIR.$fileid.'.json';
+
+// Params of the image will be dumped into the json related to the image
+// so might as well create that now. More fields will be filled in when it
+// is efficient for the program to do so.
+$imageParams = array(
+    user => array(),
+    imageName => $imageName,
+    notes => $_POST['notes'],
+    email => array()
+);
+foreach(explode(',', $_POST['name']) as $name){
+    array_push($imageParams['user'], $name);
+}
+
 
 //addUploadToDatabase($_POST['name'], $_POST['email'], $imageName, null,
 //    $latexFile, $_POST['notes']);
@@ -97,7 +98,8 @@ $templ = new Text_Template('assets/template.tex', '<$', '$>');
 $templ->setVar($TemplateKeys);
 $templ->renderTo($latexFile);
 
-// Latex uses relative pathes and must run in the directory as the generated materials.
+// Latex uses relative pathes and must run in the directory as the
+// generated materials.
 chdir(LATEX_DIR);
 // Now generate the pdf
 exec("latexmk -pdf $latexFile && latexmk -c $latexFile");
@@ -108,6 +110,7 @@ $mail->setFrom('photobooth@henryschmale.org');
 foreach(explode(',', $_POST['email']) as $address) {
     echo "$address\n";
     $mail->addAddress($address);
+    array_push($imageParams['email'], $address);
 }
 $mail->addAttachment($pdfFile);
 $mail->addAttachment($imageName);
@@ -121,6 +124,7 @@ using the photobooth created by Henry Schmale.
 https://github.com/HSchmale16/photobooth-site
 END_OF_STRING;
 
+// send the user messages
 if(!$mail->send()){
     echo "Msg Not Sent\n";
     die($mail->ErrorInfo);
@@ -134,6 +138,11 @@ $printMail = new PHPMailer;
 $printMail->addAddress('eoa7594ait86@hpeprint.com');
 $printMail->Subject = 'Newpaper Photobooth Email';
 $printMail->addAttachment($pdfFile);
+
 if($printMail->send()){
     die($printMail->ErrorInfo);
 }
+
+// All done create the json file for the image
+$json = json_encode($imageParams);
+file_put_contents($jsonFile, $json);
