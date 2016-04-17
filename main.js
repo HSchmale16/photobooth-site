@@ -111,11 +111,6 @@ function clearForm(){
     $('#emailAddress').val('');
     $('#notes').val('');
     $('#caption').val('');
-    // clear the canvas and replace with picture to tell user to take picture
-    var ctx = PhotoBooth.preview.getContext('2d');
-    ctx.clearRect(0, 0, 160, 40);
-    ctx.font = "48px serif";
-    ctx.fillText("Take\nPicture", 5, 80);
 }
 
 // init the program
