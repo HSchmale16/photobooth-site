@@ -71,6 +71,7 @@ function makeNewspaper() {
         email: $('#emailAddress').val(),
         printControl: $('#printSet').val(),
         notes: $('#notes').val(),
+        caption: $('#caption').val(),
         image: dataUrl
     };
     // validate inputs

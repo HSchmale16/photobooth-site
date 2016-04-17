@@ -80,7 +80,8 @@ $imageParams = array(
     user => array(),
     imageName => $imageName,
     notes => $_POST['notes'],
-    email => array()
+    email => array(),
+    caption => $_POST['caption']
 );
 foreach(explode(',', $_POST['name']) as $name){
     array_push($imageParams['user'], $name);
@@ -92,7 +93,8 @@ foreach(explode(',', $_POST['name']) as $name){
 
 // Generate the latex template.
 $TemplateKeys = array(
-    'groupImage' => $imageName
+    'groupImage' => $imageName,
+    'caption' => $_POST['caption']
 );
 $templ = new Text_Template('assets/template.tex', '<$', '$>');
 $templ->setVar($TemplateKeys);
@@ -124,6 +126,7 @@ using the photobooth created by Henry Schmale.
 https://github.com/HSchmale16/photobooth-site
 END_OF_STRING;
 
+/*
 // send the user messages
 if(!$mail->send()){
     echo "Msg Not Sent\n";
@@ -142,7 +145,7 @@ $printMail->addAttachment($pdfFile);
 if($printMail->send()){
     die($printMail->ErrorInfo);
 }
-
+*/
 // All done create the json file for the image
 $json = json_encode($imageParams);
 file_put_contents($jsonFile, $json);
