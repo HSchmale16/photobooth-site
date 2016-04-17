@@ -5,7 +5,7 @@
 
 // How long to wait before snapping the picture
 const COUNTDOWNLENGTH = 5;
-
+const COUNTDOWN_TIMEOUT = COUNTDOWNLENGTH * 1000;
 
 var PhotoBooth = {
     onMediaStream: function(stream) {
@@ -48,7 +48,7 @@ function takePicture() {
         PhotoBooth.preview.getContext('2d')
             .drawImage(PhotoBooth.image, 0, 0, 160, 120);
         $('#preview').show();
-    }, COUNTDOWNLENGTH);
+    }, COUNTDOWN_TIMEOUT);
 }
 
 // returns true if <value> exists in <arr>
