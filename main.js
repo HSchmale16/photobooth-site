@@ -1,7 +1,11 @@
-/**
- * main.js
+/*
+ * @file main.js
  * Created by hschmale on 3/6/16.
  */
+
+// How long to wait before snapping the picture
+const COUNTDOWNLENGTH = 5;
+
 
 var PhotoBooth = {
     onMediaStream: function(stream) {
@@ -35,7 +39,7 @@ function countdown(secs){
 // shows countdown then captures the image at end of countdown
 function takePicture() {
     $('.countdown').show();
-    countdown(3);
+    countdown(COUNTDOWNLENGTH);
     setTimeout(function() {
         PhotoBooth.image.getContext('2d')
             .drawImage(PhotoBooth.localVideo, 0, 0,
@@ -44,8 +48,7 @@ function takePicture() {
         PhotoBooth.preview.getContext('2d')
             .drawImage(PhotoBooth.image, 0, 0, 160, 120);
         $('#preview').show();
-
-    }, 3000);
+    }, COUNTDOWNLENGTH);
 }
 
 // returns true if <value> exists in <arr>
@@ -69,7 +72,6 @@ function makeNewspaper() {
     var data = {
         name: $('#username').val(),
         email: $('#emailAddress').val(),
-        printControl: $('#printSet').val(),
         notes: $('#notes').val(),
         caption: $('#caption').val(),
         image: dataUrl
@@ -96,9 +98,24 @@ function makeNewspaper() {
         '/api/upload.php',
         data,
         function(resp, status){
-            alert(resp);
+            alert(resp + ' ' + status);
+            if(status == 200){
+                clearForm();
+            }
         }
     );
+}
+
+function clearForm(){
+    $('#username').val('');
+    $('#emailAddress').val('');
+    $('#notes').val('');
+    $('#caption').val('');
+    // clear the canvas and replace with picture to tell user to take picture
+    var ctx = PhotoBooth.preview.getContext('2d');
+    ctx.clearRect(0, 0, 160, 40);
+    ctx.font = "48px serif";
+    ctx.fillText("Take\nPicture", 5, 80);
 }
 
 // init the program

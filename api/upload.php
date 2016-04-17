@@ -140,6 +140,7 @@ $printMail = new PHPMailer;
 $printMail->setFrom('photobooth@henryschmale.org');
 $printMail->addAddress('schmaleprint@hpeprint.com');
 $printMail->Subject = 'Newpaper Photobooth Email';
+// email to printer has the empty body, allow this
 $printMail->AllowEmpty = true;
 $printMail->addAttachment($pdfFile);
 
