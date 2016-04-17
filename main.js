@@ -123,6 +123,7 @@ function init() {
     // set up event listeners
     $('#takePicture').click(takePicture);
     $('#usePicture').click(makeNewspaper);
+    $('#clearForm').click(clearForm);
 
     // open the video stream
     getUserMedia(
