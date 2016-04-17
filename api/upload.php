@@ -140,6 +140,7 @@ $printMail = new PHPMailer;
 $printMail->setFrom('photobooth@henryschmale.org');
 $printMail->addAddress('schmaleprint@hpeprint.com');
 $printMail->Subject = 'Newpaper Photobooth Email';
+$printMali->Body = '';
 $printMail->addAttachment($pdfFile);
 
 if(!$printMail->send()){
