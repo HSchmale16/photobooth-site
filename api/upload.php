@@ -137,6 +137,7 @@ if(!$mail->send()){
 // send the email to the printer
 // There must be no body in the email, just the attachment to print.
 $printMail = new PHPMailer;
+$printMail->setFrom('photobooth@henryschmale.org');
 $printMail->addAddress('schmalePrint@hpeprint.com');
 $printMail->Subject = 'Newpaper Photobooth Email';
 $printMail->addAttachment($pdfFile);
