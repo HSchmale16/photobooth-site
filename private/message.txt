@@ -1,0 +1,13 @@
+Greetings User of the Photobooth at Barbara's Birthday.
+
+This message is a notification that you can view and download the pictures
+taken at the party at http://tex-photobooth.nfshost.com/photos.php.
+
+To save any picture on that site, right click on the picture and select the
+save as option. You can save it any where you would like.
+
+This server will be up for the next month, so get the pictures while you
+can.
+
+Sincerly,
+The Photobooth at Barbara's Birthday
