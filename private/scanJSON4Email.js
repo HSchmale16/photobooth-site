@@ -19,11 +19,15 @@ function endsWith(str, suffix) {
 }
 
 function sendEmail(address){
+    var msg = fs.readFileSync('/home/public/private/message.txt'); 
+
     var mailOpts = {
         from: 'Barbra Birthday Photobooth <no-reply@henryschmale.org>',
         to: 'hschmale16@gmail.com',
-        text: 
-    }; 
+        subject: 'Barbara\'s Birthday Party Photos are up',
+        text: msg
+    };
+    console.log(mailOpts); 
 }
 
 

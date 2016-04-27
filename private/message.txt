@@ -11,3 +11,6 @@ can.
 
 Sincerly,
 The Photobooth at Barbara's Birthday
+
+P.S. You can view the photobooth source at
+https://github.com/HSchmale16/photobooth-site
